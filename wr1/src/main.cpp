@@ -23,7 +23,7 @@ void loop() {
     {
         BLEAdvertisedDevice device = results.getDevice(i);
 
-        if (device.getServiceDataUUID().toString() == "9f46b94c-9574-4f6c-bd1b-ddc3a7a83a43"){
+        if (!strcmp(device.getServiceDataUUID().toString().c_str(), "9f46b94c-9574-4f6c-bd1b-ddc3a7a83a43")){
             digitalWrite(LED, HIGH);
         }
         //Serial.printf("%i %s %s\n", device.getRSSI(),device.getName().c_str(), device.getServiceUUID().toString().c_str());
