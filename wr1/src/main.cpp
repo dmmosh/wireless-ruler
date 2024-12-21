@@ -12,25 +12,22 @@ void setup() {
     BLEDevice::init("");
 }
 
-
 void loop() {
     BLEScan* scan = BLEDevice::getScan();
     scan->setActiveScan(true);
     BLEScanResults results = scan->start(1);
-    int count = results.getCount();
-    if (count == 0){
-        Serial.println("No devices found.");
-        pinMode(LED,LOW);
-    } else {
-        pinMode(LED,HIGH);
-    }
-    for (size_t i = 0; i < count; i++)
+    int best = CUTOFF;
+    for (size_t i = 0; i < results.getCount(); i++)
     {
         BLEAdvertisedDevice device = results.getDevice(i);
 
+        int rssi = device.getRSSI();
+        if(rssi > best){
+            best = rssi; 
+        }
         Serial.printf("%i %s\n", device.getRSSI(),device.getName());
-
     }
+    digitalWrite(LED, (best>CUTOFF) ? HIGH : LOW);
 
   // put your main code here, to run repeatedly:
 }
