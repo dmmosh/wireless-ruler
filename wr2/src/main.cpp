@@ -13,7 +13,9 @@ void setup() {
   Serial.begin(115200);
 
   BLEDevice::init("MyESP32");
+  
   BLEServer *pServer = BLEDevice::createServer();
+  pServer->getAdvertising()->setScanFilter(1,0);
   BLEService *pService = pServer->createService(SERVICE_UUID);
   BLECharacteristic *pCharacteristic = pService->createCharacteristic(
                                          CHARACTERISTIC_UUID,
