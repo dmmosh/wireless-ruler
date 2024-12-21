@@ -11,7 +11,6 @@
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Starting BLE work!");
 
   BLEDevice::init("MyESP32");
   BLEServer *pServer = BLEDevice::createServer();
@@ -22,16 +21,11 @@ void setup() {
                                          BLECharacteristic::PROPERTY_WRITE
                                        );
 
-  pCharacteristic->setValue("Hello World says Neil");
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   pAdvertising->addServiceUUID(SERVICE_UUID);
-  pAdvertising->setScanResponse(true);
-  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-  pAdvertising->setMinPreferred(0x12);
   BLEDevice::startAdvertising();
-  Serial.println("Characteristic defined! Now you can read it in your phone!");
 }
 
 void loop() {
