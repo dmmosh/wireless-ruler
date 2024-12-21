@@ -8,6 +8,7 @@
 
 
 void setup() {
+    Serial.begin(115200);
     pinMode(LED,OUTPUT);
     BLEDevice::init("");
 }
@@ -25,9 +26,9 @@ void loop() {
         if(rssi > best){
             best = rssi; 
         }
+        Serial.printf("%i %s\n", device.getRSSI(),device.getName());
     }
     digitalWrite(LED, (best>CUTOFF) ? HIGH : LOW);
-    Serial.print("cdsnljdksjckl");
 
   // put your main code here, to run repeatedly:
 }
