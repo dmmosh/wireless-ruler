@@ -23,6 +23,7 @@ void loop() {
         BLEAdvertisedDevice device = results.getDevice(i);
 
         if (!strcmp(device.getServiceUUID().toString().c_str(), "9f46b94c-9574-4f6c-bd1b-ddc3a7a83a43")){
+            Serial.printf("Signal strength: %i\n", 100+device.getRSSI());
             other_esp = true;
         }
         //Serial.printf("%i %s %s\n", device.getRSSI(),device.getName().c_str(), device.getServiceUUID().toString().c_str());
