@@ -26,7 +26,7 @@ void loop() {
         if(rssi > best){
             best = rssi; 
         }
-        Serial.printf("%i %s\n", device.getRSSI(),device.getName());
+        Serial.printf("%i %s\n", device.getRSSI(),device.getName().c_str());
     }
     digitalWrite(LED, (best>CUTOFF) ? HIGH : LOW);
 
