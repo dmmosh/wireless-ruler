@@ -18,15 +18,15 @@ void loop() {
     scan->setActiveScan(true);
     BLEScanResults results = scan->start(1);
     int best = CUTOFF;
+    digitalWrite(LED,LOW);
     for (size_t i = 0; i < results.getCount(); i++)
     {
         BLEAdvertisedDevice device = results.getDevice(i);
 
-        int rssi = device.getRSSI();
-        if(rssi > best){
-            best = rssi; 
+        if (device.getServiceDataUUID().toString() == "9f46b94c-9574-4f6c-bd1b-ddc3a7a83a43"){
+            digitalWrite(LED, HIGH);
         }
-        Serial.printf("%i %s %s\n", device.getRSSI(),device.getName().c_str(), device.getServiceUUID().toString().c_str());
+        //Serial.printf("%i %s %s\n", device.getRSSI(),device.getName().c_str(), device.getServiceUUID().toString().c_str());
     }
     //digitalWrite(LED, (best>CUTOFF) ? HIGH : LOW);
 
