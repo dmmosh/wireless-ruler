@@ -11,6 +11,16 @@ void setup() {
     Serial.begin(115200);
     pinMode(LED,OUTPUT);
     BLEDevice::init("");
+
+    esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_DEFAULT, ESP_PWR_LVL_P9); 
+    esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, ESP_PWR_LVL_P9);
+    esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_SCAN ,ESP_PWR_LVL_P9);
+
+
+  Serial.println("Power Settings: (ADV,SCAN,DEFAULT)");         //all should show index7, aka +9dbm
+  Serial.println(esp_ble_tx_power_get(ESP_BLE_PWR_TYPE_ADV));
+  Serial.println(esp_ble_tx_power_get(ESP_BLE_PWR_TYPE_SCAN));
+  Serial.println(esp_ble_tx_power_get(ESP_BLE_PWR_TYPE_DEFAULT));
 }
 
 void loop() {
